@@ -785,7 +785,7 @@
 <!-- COUNTER -->
 <div class="counter-strip">
   <div class="label">⏳ Oferta encerrada em</div>
-  <div class="number" id="hero-counter"><span>00</span>:<span>23</span>:<span>47</span></div>
+  <div class="number" id="hero-counter"><span id="h-h">00</span>:<span id="h-m">23</span>:<span id="h-s">47</span></div>
 </div>
 
 <!-- ═══════════════════════════════════
@@ -1157,19 +1157,37 @@
 </footer>
 
 <script>
-  // ── COUNTDOWN TIMER ──
+  // ── COUNTDOWN TIMER (sincronizado nos dois contadores) ──
   let totalSeconds = 23 * 60 + 47;
+
+  // Contador vermelho (embaixo)
   const th = document.getElementById('t-h');
   const tm = document.getElementById('t-m');
   const ts = document.getElementById('t-s');
+
+  // Contador dourado (topo)
+  const hh = document.getElementById('h-h');
+  const hm = document.getElementById('h-m');
+  const hs = document.getElementById('h-s');
 
   function updateTimer() {
     const h = Math.floor(totalSeconds / 3600);
     const m = Math.floor((totalSeconds % 3600) / 60);
     const s = totalSeconds % 60;
-    th.textContent = String(h).padStart(2, '0');
-    tm.textContent = String(m).padStart(2, '0');
-    ts.textContent = String(s).padStart(2, '0');
+    const hStr = String(h).padStart(2, '0');
+    const mStr = String(m).padStart(2, '0');
+    const sStr = String(s).padStart(2, '0');
+
+    // Atualiza contador vermelho
+    th.textContent = hStr;
+    tm.textContent = mStr;
+    ts.textContent = sStr;
+
+    // Atualiza contador dourado do topo
+    hh.textContent = hStr;
+    hm.textContent = mStr;
+    hs.textContent = sStr;
+
     if (totalSeconds > 0) totalSeconds--;
   }
   updateTimer();
